@@ -1,6 +1,6 @@
 zyxware_quiz_homepage:
-    path:     /quiz/
-    defaults: { _controller: ZyxwareQuizBundle:Quiz:index }
+    path:     /quiz
+    defaults: { _controller: ZyxwareQuizBundle:Quiz:create }
 zyxware_quiz_questions:
     path:     /quiz/questions
     defaults: { _controller: ZyxwareQuizBundle:Quiz:questions }
