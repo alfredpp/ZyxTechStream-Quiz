@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserScoreRepository extends EntityRepository
 {
+  public function getTopTenScores()
+  {
+    return $this->getEntityManager()
+      ->createQuery('SELECT p.firstName, p.lastName, p.email, p.score FROM ZyxwareQuizBundle:UserScore p order by p.score DESC')
+      ->setMaxResults(10)
+      ->getResult();
+  }
 }

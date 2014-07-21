@@ -24,7 +24,7 @@ class QuestionType extends AbstractType
       $i = 1;
       //$session = $this->getRequest()->getSession();
       $answers = $session->get('answers');
-      if (isset($answers)){
+      //if (isset($answers)){
         while ($i <= 12) {
           $num1 = rand (1,10);
           $num2 = rand (1,10);
@@ -75,11 +75,11 @@ class QuestionType extends AbstractType
           ));
         }
 
-
-        $session->set('answers', $answers);
+        if ($session->get('answers') == '') {
+           $session->set('answers', $answers);
+        }
 
         $builder->add('Submit Your Answers', 'submit');
-      }
     }
 
     public function getName()
