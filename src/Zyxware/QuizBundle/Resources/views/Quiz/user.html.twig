@@ -1,11 +1,37 @@
-<html>
-  <head>
-  <title>User Registration</title>
-  </head>
-  <body>
-    <h1>
-      {{ form(text) }}
+{% extends 'ZyxwareQuizBundle:Quiz:base.html.twig' %}
+
+{% block title %}
+  User Registration
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+{% block body %}
+    <h1>Hi, Please enter the following details</h1>
+    {{ form_start(text, { 'attr': {'class': 'pure-form pure-form-aligned'}}) }}
+    {{ form_errors(text) }}
+    <fieldset>
+      <div class="pure-control-group">
+          {{ form_label(text.first_name) }}
+          {{ form_errors(text.first_name) }}
+          {{ form_widget(text.first_name) }}
+      </div>
+      <div class="pure-control-group">
+          {{ form_label(text.last_name) }}
+          {{ form_errors(text.last_name) }}
+          {{ form_widget(text.last_name) }}
+      </div>
+
+      <div class="pure-control-group">
+          {{ form_label(text.email) }}
+          {{ form_errors(text.email) }}
+          {{ form_widget(text.email) }}
+      </div>
+
+      <div class="pure-controls">
+          {{ form_widget(text.Enter, {'attr': {'class': 'pure-button pure-button-primary'}}) }}
+      </div>
+    </fieldset>
+    {{ form_end(text) }}
       {{ message }}
-    </h1>
-  </body>
-</html>
+{% endblock %}

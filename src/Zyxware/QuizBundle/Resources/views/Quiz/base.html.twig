@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      {% block title %}Zyxware TechStream{% endblock %}
+    </title>
+
+    {% block stylesheets %}
+      <link href="{{ asset('bundles/zyxwarequiz/css/pure-min.css') }}" rel="stylesheet" type="text/css" />
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+  </head>
+  <body>
+  <div class="pure-g">
+    <div class="pure-u-1-4"></div>
+    <div class="pure-u-1-2">
+      {% block body %}{% endblock %}
+    </div>
+    <div class="pure-u-1-4"></div>
+
+    {% block javascripts %}
+
+    {% endblock %}
+  </body>
+</html>

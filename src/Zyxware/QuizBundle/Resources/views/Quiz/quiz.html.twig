@@ -1,13 +1,28 @@
-<html>
-  <body>
-    <h1>
-      Hi {{ user }}, Please finish your quiz.
+{% extends 'ZyxwareQuizBundle:Quiz:base.html.twig' %}
+
+{% block title %}
+  Questions
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+{% block body %}
+    <h1>Hi {{ user }}, Please finish your quiz.</h1>
     </h1>
     <div>
-      {{ form(form) }}
+      {{ form_start(form, { 'attr': {'class': 'pure-form pure-form-aligned'}}) }}
+        {% for item in form %}
+          <div class="pure-control-group">
+          {{ form_row(item) }}
+          </div>
+        {% endfor %}
+         <div class="pure-controls">
+          {{ form_widget(form.Submit, {'attr': {'class': 'pure-button pure-button-primary'}}) }}
+        </div>
+      {{ form_end(form) }}
+
     </div>
     <div>
       {{ message }}
     </div>
-  </body>
-</html>
+{% endblock %}

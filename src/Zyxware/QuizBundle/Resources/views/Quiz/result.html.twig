@@ -1,13 +1,25 @@
-<html>
-  <head>
-  <title>Results</title>
-  </head>
-  <body>
+{% extends 'ZyxwareQuizBundle:Quiz:base.html.twig' %}
+
+{% block title %}
+  Results
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+{% block body %}
     <h1>
-      Hi {{ user }}, Your score is {{ score }}.</h1>
+      Hi {{ user }}, Your score is {{ score }}.
+    </h1>
       <br/>
-      The Top Ten Scorers are:
-      <table>
+      <h2>The Top Ten Scorers are:</h2>
+      <table class="pure-table pure-table-horizontal">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Score</th>
+        </tr>
+      </thead>
       {% for item in result %}
         <tr>
           <td>
@@ -18,5 +30,4 @@
         </tr>
       {% endfor %}
     </table>
-  </body>
-</html>
+{% endblock %}

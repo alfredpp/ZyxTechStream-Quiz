@@ -1,14 +1,19 @@
-<html>
-  <head>
-    <title>
-      Quiz Home
-    </title>
-  </head>
-  <body>
-    <h1>
-      Hi There.
-    </h1>
-    Please click on the below button to start quizzing.
-    <h2><a href="./create">Start</a></h2>
-  </body>
-</html>
+{% extends 'ZyxwareQuizBundle:Quiz:base.html.twig' %}
+
+{% block title %}
+  Quiz Home
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+{% block body %}
+      <h1>
+        Hi There.
+      </h1>
+
+      Please click on the below link to start quizzing.
+      <h2><a href="{{ url('zyxware_quiz_create') }}">Start</a></h2>
+
+    </div>
+{% endblock %}
+

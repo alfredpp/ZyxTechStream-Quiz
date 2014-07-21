@@ -79,7 +79,7 @@ class QuestionType extends AbstractType
            $session->set('answers', $answers);
         }
 
-        $builder->add('Submit Your Answers', 'submit');
+        $builder->add('Submit', 'submit');
     }
 
     public function getName()

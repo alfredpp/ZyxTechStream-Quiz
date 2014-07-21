@@ -73,8 +73,7 @@ class QuizController extends Controller
           $score = 0;
           $answers = $session->get('answers');
           $data = $form->getData();
-          // echo '<pre>'; print_r($answers); echo '</pre>';
-          // die;
+
           for($i = 1; $i <= 12; $i++) {
             $user_answer = $form[$i]->getData();
             if ($user_answer == $answers[$i]) {
@@ -87,7 +86,7 @@ class QuizController extends Controller
 
         return $this->render('ZyxwareQuizBundle:Quiz:quiz.html.twig', array(
             'form' => $form->createView(),
-            'user' => $session->get('user_name'),
+            'user' => $user_name,
             'message' => $message,
           )
         );
