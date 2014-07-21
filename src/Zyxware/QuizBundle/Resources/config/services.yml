@@ -1,0 +1,7 @@
+parameters:
+#    zyxware_quiz.example.class: Zyxware\QuizBundle\Example
+
+services:
+#    zyxware_quiz.example:
+#        class: %zyxware_quiz.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

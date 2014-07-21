@@ -1,0 +1,4 @@
+zyxware_quiz:
+    resource: "@ZyxwareQuizBundle/Resources/config/routing.yml"
+    prefix:   /
+
