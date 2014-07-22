@@ -112,29 +112,39 @@ class QuizController extends Controller
       $score = $session->get('score');
       $username = $session->get('name');
       $user_id = $session->get('user_id');
-      $user = $this->getDoctrine()
-        ->getRepository('ZyxwareQuizBundle:UserScore')
-        ->find($user_id);
-      if (!$user) {
-        throw $this->createNotFoundException('No user found for id '. $user_id);
+      $finished = $session->get('finished');
+      if ($finished) {
+        $user = $this->getDoctrine()
+          ->getRepository('ZyxwareQuizBundle:UserScore')
+          ->find($user_id);
+        if (!$user) {
+          throw $this->createNotFoundException('No user found for id '. $user_id);
+        }
+        $user->setScore($score);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $session->remove('answers');
+
+        $result= $this->getDoctrine()->getEntityManager()
+         ->getRepository('ZyxwareQuizBundle:UserScore')
+         ->getTopTenScores();
+
+
+        return $this->render('ZyxwareQuizBundle:Quiz:result.html.twig', array(
+              'score' => $score,
+              'user' => $username,
+              'result' => $result,
+            )
+          );
       }
-      //$user->setUname($username);
-      $user->setScore($score);
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($user);
-      $em->flush();
-      $session->remove('answers');
-
-      $result= $this->getDoctrine()->getEntityManager()
-       ->getRepository('ZyxwareQuizBundle:UserScore')
-       ->getTopTenScores();
-
-
-      return $this->render('ZyxwareQuizBundle:Quiz:result.html.twig', array(
-            'score' => $score,
-            'user' => $username,
-            'result' => $result,
-          )
-        );
+      else {
+        return $this->render('ZyxwareQuizBundle:Quiz:result.html.twig', array(
+              'score' => '',
+              'user' => $username,
+              'result' => "Hi User, It appears that you haven't completed your quiz.",
+            )
+          );
+      }
     }
 }
