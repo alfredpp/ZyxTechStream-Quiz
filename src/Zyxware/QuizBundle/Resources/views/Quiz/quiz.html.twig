@@ -7,21 +7,25 @@
   {{ parent() }}
 {% endblock %}
 {% block body %}
-    <h1>Hi {{ user }}, Please finish your quiz.</h1>
-    </h1>
-    <div>
-      {{ form_start(form, { 'attr': {'class': 'pure-form pure-form-aligned'}}) }}
-        {% for item in form %}
-          <div class="pure-control-group">
-          {{ form_row(item) }}
-          </div>
-        {% endfor %}
-         <div class="pure-controls">
-          {{ form_widget(form.Submit, {'attr': {'class': 'pure-button pure-button-primary'}}) }}
-        </div>
-      {{ form_end(form) }}
-
-    </div>
+    {% if form %}
+      <h1>Hi {{ user }}, Please finish your quiz.</h1>
+      <div>
+        {{ form_start(form, { 'attr': {'class': 'pure-form pure-form-aligned'}}) }}
+          {% for item in form %}
+            <div class="pure-control-group">
+            {{ form_row(item) }}
+            </div>
+          {% endfor %}
+        {{ form_end(form) }}
+      </div>
+    {% else %}
+      <div>
+        <h1>Hi {{ user }}, You have already submitted the answer</h1>
+        <p>
+          <a href="{{ url('zyxware_quiz_result') }}" class='pure-button pure-button-primary'>See Results</a>
+        </p>
+      </div>
+    {% endif %}
     <div>
       {{ message }}
     </div>

@@ -8,10 +8,21 @@
 
     {% block stylesheets %}
       <link href="{{ asset('bundles/zyxwarequiz/css/pure-min.css') }}" rel="stylesheet" type="text/css" />
+      <style type="text/css">
+        .centered {
+          margin: 0 auto;
+          text-align: center;
+        }
+      </style>
     {% endblock %}
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-
+    <style>
+        body {
+            background-color: #e3e6e6;
+            color: #123;
+        }
+    </style>
   </head>
   <body>
   <div class="pure-g">
