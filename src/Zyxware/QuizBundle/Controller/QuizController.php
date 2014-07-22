@@ -30,9 +30,7 @@ class QuizController extends Controller
             ->getForm();
         $form->handleRequest($request);
         $session = $this->getRequest()->getSession();
-        $session->remove('answers');
-        $session->remove('user_id');
-        $session->remove('name');
+        $session->invalidate();
 
         if ($form->isValid()) {
           // perform some action, such as saving the task to the database
@@ -48,6 +46,7 @@ class QuizController extends Controller
 
           // set and get session attributes
           $session->set('user_id', $user->getId());
+          $session->set('finished', 0);
           $session->set('name', $first_name . ' ' . $last_name);
           return $this->redirect($this->generateUrl('zyxware_quiz_questions'));
         }
@@ -62,34 +61,48 @@ class QuizController extends Controller
     {
       $session = $this->getRequest()->getSession();
       $user_name = $session->get('name');
+      $user_id = $session->get('user_id');
+      $finished = $session->get('finished');
       $message = '';
-      if ($session->get('user_id')) {
-        $user = new Questions();
-        $user_id = $session->get('user_id');
-        $form = $this->createForm(new QuestionType($session));
+      if ($user_id) {
+        if(!$finished) {
+          $user = new Questions();
 
-        $form = $form->handleRequest($request);
-        if ($form->isValid()) {
-          $score = 0;
-          $answers = $session->get('answers');
-          $data = $form->getData();
+          $form = $this->createForm(new QuestionType($session));
 
-          for($i = 1; $i <= 12; $i++) {
-            $user_answer = $form[$i]->getData();
-            if ($user_answer == $answers[$i]) {
-              $score++;
+          $form = $form->handleRequest($request);
+          if ($form->isValid()) {
+            $score = 0;
+            $answers = $session->get('answers');
+            $data = $form->getData();
+
+            for($i = 1; $i <= 12; $i++) {
+              $user_answer = $form[$i]->getData();
+              if ($user_answer == $answers[$i]) {
+                $score++;
+              }
             }
+            $session->set('score', $score);
+            $session->set('finished', 1);
+            return $this->redirect($this->generateUrl('zyxware_quiz_result'));
           }
-          $session->set('score', $score);
-          return $this->redirect($this->generateUrl('zyxware_quiz_result'));
-        }
 
-        return $this->render('ZyxwareQuizBundle:Quiz:quiz.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user_name,
-            'message' => $message,
-          )
-        );
+          return $this->render('ZyxwareQuizBundle:Quiz:quiz.html.twig', array(
+              'form' => $form->createView(),
+              'user' => $user_name,
+              'message' => $message,
+            )
+          );
+        }
+        else {
+          $message = 'You have already submitted the answers.';
+          return $this->render('ZyxwareQuizBundle:Quiz:quiz.html.twig', array(
+              'form' => '',
+              'user' => $user_name,
+              'message' => $message,
+            )
+          );
+        }
       }
     }
 
