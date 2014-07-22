@@ -33,7 +33,10 @@
     </table>
     {% else %}
     <h1>
-      {{ result }}.
+      {{ result }}
+      <p>
+      <a href="{{ url('zyxware_quiz_create') }}" class='pure-button pure-button-primary'>Register</a>
+      </p>
     </h1>
     {% endif %}
 
